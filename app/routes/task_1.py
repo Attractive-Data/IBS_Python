@@ -17,8 +17,17 @@ router = APIRouter(tags=["Стажировка"])
 """
 @router.post("/find_in_different_registers", description="Задание_1. Удаление дублей")
 async def find_in_different_registers(words: list[str]) -> list[str]:
-    """Описание."""
+    """Функция принимает список, переводит его в нижний регистр, с помощью
+    импортированной функции Counter считает количество слов в списке, а
+    затем возвращает список из неповторяющихся слов."""
 
-    result = []
+    from collections import Counter
+
+    words = [x.lower() for x in words]
+
+    my_list_count = Counter(words)
+
+    result = [xx for xx in my_list_count if my_list_count[xx] == 1]
 
     return result
+
