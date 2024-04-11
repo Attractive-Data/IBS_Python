@@ -37,8 +37,18 @@ router = APIRouter(tags=["Стажировка"])
 """
 @router.post("/get_average_age_by_position", description="Задание_4. Работа с pandas и csv")
 async def get_average_age_by_position(file):
-    """"""
+    """Считывает данные из файла и возвращает словарь,
+    где ключи - это должности, а значения - средний возраст работника"""
+    import pandas as pd
 
-    result = average_age_by_position(file)
+    data = pd.read_csv(file)
+    posts = {}
 
-    return result
+    un = data['Должность'].unique()
+
+    for i in range(0, len(un)):
+        posts[un[i]] = data[data['Должность'] == un[i]]['Возраст'].mean()
+
+    #result = average_age_by_position(file)
+
+    return posts
