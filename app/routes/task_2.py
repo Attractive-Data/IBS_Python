@@ -27,6 +27,22 @@ async def convert_number(number: Annotated[int | str, Body()]) -> ConverterRespo
     }
     """
 
-    converter_response = ConverterResponse()
+
+    arab = 0
+    rom = '' 
+
+    # Определение типа данных, попадающих на вход функции.
+    
+    if isinstance(number, int):
+        arab = number
+        rom = convert_arabic_to_roman(number)
+    elif isinstance(number, str):
+        arab = convert_roman_to_arabic(number)
+        rom = number
+    else:
+        raise ValueError('Неверный формат')
+
+    converter_response = ConverterResponse(arabic=arabic, roman=roman)
 
     return converter_response
+

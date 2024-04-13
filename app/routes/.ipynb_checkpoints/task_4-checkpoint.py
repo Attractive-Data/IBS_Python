@@ -1,8 +1,6 @@
-from fastapi import APIRouter, UploadFile
+from fastapi import APIRouter
 
 from app.core import average_age_by_position
-from core.exception import CustomException
-
 
 
 router = APIRouter(tags=["Стажировка"])
@@ -39,21 +37,8 @@ router = APIRouter(tags=["Стажировка"])
 """
 @router.post("/get_average_age_by_position", description="Задание_4. Работа с pandas и csv")
 async def get_average_age_by_position(file):
-    """Считывает данные из файла и возвращает словарь,
-    где ключи - это должности, а значения - средний возраст работника"""
-    fct = file.content_type
-    
-    csv_types = ('application/csv', 'application/x-csv',
-                 'text/x-csv', 'application/vnd.ms-excel',
-                 'text/csv', 'text/comma-separated-values',
-                 'text/x-comma-separated-values',
-                 'text/tab-separated-values')
-    
-    if fct not in csv_types:
-        raise CustomException(detail='Error file.',
-                              status_code=400)
-    
-    result = average_age_by_position(file.file)
-    
-    return result
+    """"""
 
+    result = average_age_by_position(file)
+
+    return result
